@@ -1,3 +1,8 @@
-# fsi-pract-2
+# FSI PRÁCTICA 2
+# REDES NEURONALES
+Juan Carlos Acosta Perabá    
+Isai Cordero García
 
-GII - FSI - Práctica 2
+
+
+
