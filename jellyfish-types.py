@@ -1,14 +1,16 @@
+import random
+import os
 import keras
 from keras.datasets import mnist
 from keras.models import Sequential
 from keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout
 from keras.utils import to_categorical
+from keras.preprocessing.image import ImageDataGenerator
+from keras.callbacks import EarlyStopping
 import matplotlib.pyplot as plt
-import random
 import numpy as np
 import tensorflow as tf
-from keras.preprocessing.image import ImageDataGenerator
-import os
+import scipy
 
 # Establecer una semilla para reproducibilidad
 seed_value = 42
@@ -17,7 +19,6 @@ np.random.seed(seed_value)     # Semilla para NumPy
 tf.random.set_seed(seed_value) # Semilla para TensorFlow/Keras
 
 # A partir de aquí, puedes continuar con la construcción y entrenamiento de tu modelo de Keras
-
 def generatePlot(history):
     # Extracción de datos
     acc = history.history['accuracy']
@@ -52,8 +53,8 @@ def generatePlot(history):
 from keras.preprocessing.image import ImageDataGenerator
 import os
 
-image_size = 150
-data_dir = os.path.join('data2')
+image_size = 224
+data_dir = os.path.join('data2', 'jellyfish')
 batch_size = 16
 rescale_factor = 1./255
 
@@ -85,9 +86,9 @@ train_datagen = ImageDataGenerator(rescale=1./255)
 validation_datagen = ImageDataGenerator(rescale=1./255)
 test_datagen = ImageDataGenerator(rescale=1./255)
 
-train_generator = train_datagen.flow_from_directory('data/train/')
-validation_generator = validation_datagen.flow_from_directory('data/validation/')
-test_generator = test_datagen.flow_from_directory('data/test/')
+train_generator = train_datagen.flow_from_directory('data2/train/')
+validation_generator = validation_datagen.flow_from_directory('data2/validation/')
+test_generator = test_datagen.flow_from_directory('data2/test/')
 
 # ver imagenes
 # x_batch, y_batch = next(train_generator)
@@ -108,3 +109,18 @@ model.add(Dropout(0.5))  # Dropout antes de la capa de salida
 model.add(Dense(7, activation='softmax'))
 print(model.summary())
 
+# Configurar Early Stopping
+early_stopping = EarlyStopping(monitor='val_loss', patience=5)  # 'patience' es el número de épocas sin mejora después de las cuales el entrenamiento se detendrá
+
+model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+epochs = 10
+
+# Entrenar el modelo con Early Stopping
+history_of_train = model.fit(
+        train_generator,
+        epochs=epochs,
+        validation_data = validation_generator,
+        callbacks = [early_stopping]
+)
+
+generatePlot(history_of_train)
