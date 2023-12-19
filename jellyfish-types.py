@@ -91,11 +91,11 @@ validation_generator = validation_datagen.flow_from_directory('data2/validation/
 test_generator = test_datagen.flow_from_directory('data2/test/')
 
 # ver imagenes
-# x_batch, y_batch = next(train_generator)
-# for i in range (0, 2):
-#     image = x_batch[i]
-#     plt.imshow(image)
-#     plt.show()
+x_batch, y_batch = next(train_generator)
+for i in range (0, 2):
+    image = x_batch[i]
+    plt.imshow(image)
+    plt.show()
 
 model = Sequential()
 # Capas convolucionales
@@ -106,7 +106,7 @@ model.add(Flatten()) # Aplanar la salida de la capa convolucional
 # Capas fully connected (clasificador)
 model.add(Dense(128, activation='relu'))
 model.add(Dropout(0.5))  # Dropout antes de la capa de salida
-model.add(Dense(7, activation='softmax'))
+model.add(Dense(6, activation='softmax'))
 print(model.summary())
 
 # Configurar Early Stopping
