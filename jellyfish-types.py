@@ -48,8 +48,12 @@ def generatePlot(history):
     plt.tight_layout()
     plt.show()
 
+# Jellyfish dataset
+from keras.preprocessing.image import ImageDataGenerator
+import os
+
 image_size = 150
-data_dir = os.path.join('data2', 'jellyfish')
+data_dir = os.path.join('data2')
 batch_size = 16
 rescale_factor = 1./255
 
@@ -77,12 +81,20 @@ validation_generator = train_datagen.flow_from_directory(
     class_mode='categorical',
     subset='validation') # Seleccionar solo el conjunto de validación
 
+train_datagen = ImageDataGenerator(rescale=1./255)
+validation_datagen = ImageDataGenerator(rescale=1./255)
+test_datagen = ImageDataGenerator(rescale=1./255)
+
+train_generator = train_datagen.flow_from_directory('data/train/')
+validation_generator = validation_datagen.flow_from_directory('data/validation/')
+test_generator = test_datagen.flow_from_directory('data/test/')
+
 # ver imagenes
-x_batch, y_batch = next(train_generator)
-for i in range (0, 2):
-    image = x_batch[i]
-    plt.imshow(image)
-    plt.show()
+# x_batch, y_batch = next(train_generator)
+# for i in range (0, 2):
+#     image = x_batch[i]
+#     plt.imshow(image)
+#     plt.show()
 
 model = Sequential()
 # Capas convolucionales
@@ -95,3 +107,4 @@ model.add(Dense(128, activation='relu'))
 model.add(Dropout(0.5))  # Dropout antes de la capa de salida
 model.add(Dense(7, activation='softmax'))
 print(model.summary())
+
