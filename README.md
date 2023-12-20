@@ -4,6 +4,7 @@ Juan Carlos Acosta Perabá
 Isai Cordero García
 
 Dataset utilizado en la práctica: [enlace](https://www.kaggle.com/datasets/utkarshsaxenadn/flower-classification-5-classes-roselilyetc)
+
 ![Imagen del Dataset para práctica](./DatasetFlores.png)
 
 Este dataset consta de 5 flores diferentes en las que hay apróximadamente 1000 fotos de cada una.
@@ -12,8 +13,8 @@ Este dataset consta de 5 flores diferentes en las que hay apróximadamente 1000 
 
 En esta carpeta están los diferentes tipos de flores que se usaran para la red neuronal, todas las imagenes están en una misma carpeta y será desde el código donde diferenciaremos para los entrenamientos y la validación.
 
-
 Utilizamos el método de data Augmentation para poder tener mas imágenes en el dataset.
+
 ```python
 from tensorflow.keras.preprocessing.image import ImageDataGenerator, img_to_array, load_img
 
@@ -77,4 +78,5 @@ model.compile(loss=tf.keras.losses.categorical_crossentropy,
 ```
 
 Con 83 épocas y con todos los cambios realizados podemos observar que obtenemos un porcentaje de validación del 77,66%
+
 ![Imagen de la gráfica](./output.png)
