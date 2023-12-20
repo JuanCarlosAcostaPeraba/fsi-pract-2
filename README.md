@@ -77,6 +77,6 @@ model.compile(loss=tf.keras.losses.categorical_crossentropy,
               metrics=['accuracy'])
 ```
 
-Con 58 épocas y con todos los cambios realizados podemos observar que obtenemos un porcentaje de validación del 81,42%
+Con 58 épocas y con todos los cambios realizados podemos observar que obtenemos un porcentaje de validación del 81.42%
 
 ![Imagen de la gráfica](./output.png)
