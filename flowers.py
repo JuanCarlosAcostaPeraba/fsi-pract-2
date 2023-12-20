@@ -57,9 +57,13 @@ rescale_factor = 1./255
 # Crear un generador para aumentar datos
 train_datagen = ImageDataGenerator(
     rescale=rescale_factor,    # Normalizar los valores de los píxeles
-    shear_range=0.2,   # Rango para las transformaciones aleatorias
-    zoom_range=0.1,    # Rango para el zoom aleatorio
-    horizontal_flip=True, # Activar el giro horizontal aleatorio
+    rotation_range=15,
+	zoom_range=0.1,
+	horizontal_flip=True,
+	brightness_range=[0.2, 1.0],
+	zca_epsilon=1e-06,
+	channel_shift_range=100,
+	shear_range=0.2
 )
 
 # Cargar imágenes de entrenamiento
@@ -119,7 +123,7 @@ model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accur
 epochs = 10
 
 # Entrenar el modelo con Early Stopping
-history_of_train = model.fit(
+history_of_train = model.fit_generator(
         train_generator,
         epochs=epochs,
         validation_data = validation_generator,
