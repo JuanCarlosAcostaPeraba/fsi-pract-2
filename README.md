@@ -7,7 +7,7 @@ Dataset utilizado en la práctica: [enlace](https://www.kaggle.com/datasets/utka
 
 ![Imagen del Dataset para práctica](./DatasetFlores.png)
 
-Este dataset consta de 10 clases de flores diferentes, pero nosotros lo redujimos a 5 clases, en las que hay apróximadamente 1000 fotos de cada clase.
+Este dataset consta de 5 clases de flores diferentes, aunque en el título del dataset ponga 10, en las que hay apróximadamente 1000 fotos de cada clase.
 
 ![Imagen de la carpeta de flores](./TiposFlores.png)
 
